@@ -8,7 +8,9 @@ private:
   uint32_t _unixtime = 0;
 
 public:
-  OffTime() {}
+  OffTime(){
+    Serial.print("ola mundo");
+  }
 
   //retorna o unix atual (precisa ter ocorrido pelo menos 1 atualização do tipo set seja vindo de servidor ntp, rtc externo etc)
   unsigned long now() {
@@ -27,16 +29,19 @@ public:
 
   //retorna hora (0-23)
   int get_hour() {
+    now();
     return ((_unixtime % (60 * 60 * 24)) / (60 * 60));
   }
 
   //retorna minuto (0-59)
   int get_minute() {
+    now();
     return ((_unixtime % (60 * 60)) / 60);
   }
 
   //retorna segundo (0-59)
   int get_second() {
+    now();
     return (_unixtime % 60);
   }
 
@@ -44,6 +49,7 @@ public:
   //Calcula o dia do mês (1-31) dividindo o timestamp Unix por 86400 (segundos em um dia) e obtendo o resto da divisão por 31.
   //Adiciona 1 ao resultado para que o dia seja contado de 1 a 31.
   int get_day() {
+    now();
     return ((_unixtime / (60 * 60 * 24)) % 31) + 1;
   }
 
@@ -52,6 +58,7 @@ public:
   // Itera sobre os meses, somando os dias de cada mês até que o número total de dias acumulados seja maior ou igual ao número de dias decorridos desde o início do ano.
   // O índice do mês no array representa o mês atual.
   int get_month() {
+    now();
     int dias_no_mes[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     int dias_acumulados = 0;
     int mes = 1;
